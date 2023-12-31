@@ -94,6 +94,29 @@ filename = f"{directory}/{ticker}_stock_price_{start_str}_to_{end_str}.png"
 plt.savefig(filename)
 plt.show()
 
+# 最新から5日分のMA10とMA50のデータを取得し、比較結果を出力
+latest_MA10 = df["MA10"].iloc[-5:]
+latest_MA50 = df["MA50"].iloc[-5:]
+latest_dates = df.index[-5:]
+
+print("Comparing latest 5 days of MA10 and MA50:")
+messages = [f"TSLA ({start_str} - {end_str})"]
+for i in range(5):
+    date = latest_dates[i]
+    ma10_value = latest_MA10.iloc[i]
+    ma50_value = latest_MA50.iloc[i]
+    comparison = (
+        "⭐️" if ma10_value > ma50_value else "❎" if ma10_value < ma50_value else "🌥️"
+    )
+    # print(
+    #     f"Date: {date}, MA10: {ma10_value:.2f}, MA50: {ma50_value:.2f}, Diff: {ma10_value - ma50_value:.2f}, Comparison: {comparison}"
+    # )
+    messages.append(
+        f"{date:%m/%d}, M10: {ma10_value:.1f}, M50: {ma50_value:.1f}, Diff: {ma10_value - ma50_value:.1f}, Res: {comparison}"
+    )
+
+
 # LINE Notifyを通じて通知
-line.send_line_notify(f"テスラの株価チャート ({start_str} - {end_str})", filename)
+# line.send_line_notify(f"テスラの株価チャート ({start_str} - {end_str})", filename)
+line.send_line_notify(messages, filename)
 # line.send_line_notify_group(f"テスラの株価チャート ({start_str} - {end_str})", filename)

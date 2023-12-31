@@ -8,6 +8,6 @@ def fourth_order_diff(series):
     d2 = series.shift(-1)  # 1つ後の値
     d3 = series.shift(1)  # 1つ前の値
     d4 = series.shift(2)  # 2つ前の値
-    print(f"series:{series}")
-    print(f"d1:{d1}")
+    # print(f"series:{series}")
+    # print(f"d1:{d1}")
     return (-d4 + 8 * d3 - 8 * d2 + d1) / 12
