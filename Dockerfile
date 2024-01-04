@@ -18,4 +18,4 @@ RUN pip install --upgrade setuptools
 
 RUN pip install -r /root/requirements.txt
 
-CMD ["python", "/usr/stock_inform/src/sample6_notification.py"]
+CMD ["python", "/usr/stock_inform/src/sample7_notification.py"]
